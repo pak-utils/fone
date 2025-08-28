@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.1.2] - 2025-08-28
+
+### Changes since v1.1.1:
+
+**fix: remove redundant local field and improve documentation**
+
+  - Remove duplicate 'local' field from PhoneNumber interface
+  - Keep only meaningful distinct fields: raw, formatted, international
+  - Update implementations in validators.ts and helpers.ts
+  - Fix all test references to removed field
+  - Enhance README with better examples and structure
+  - Fix technical inconsistencies in documentation
+  - Update npm version badge to dynamic display
+  - Remove hardcoded performance metrics
+  - Improve TypeScript examples with proper imports
+  - Add real-world use case examples
+
+  BREAKING CHANGE: PhoneNumber interface no longer includes 'local' field.
+  Use 'formatted' for display or format(phone, 'compact') for compact form.
+
+
+
 ## [1.1.1] - 2025-08-28
 
 ### Changes since v1.1.0:
