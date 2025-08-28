@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.1] - 2025-08-28
+
+### Changes since v1.1.0:
+
+**fix: enhance validation and clean up API**
+
+  - Add strict 14-digit maximum length validation for Pakistani mobile numbers
+  - Simplify PhoneNumberType from 'mobile' | 'unknown' to 'mobile' only
+  - Remove VERSION and packageInfo exports from main API
+  - Fix input sanitization length limit from 50 to 30 characters
+  - Maintain backward compatibility for all core functions
+
+
+
 ## [1.1.0] - 2025-08-28
 
 ### Changes since v1.0.0:
