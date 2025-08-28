@@ -109,10 +109,12 @@ jobs:
           if git describe --tags --abbrev=0 >/dev/null 2>&1; then
             last_tag=$(git describe --tags --abbrev=0)
             echo "### Changes since $last_tag:" >> changelog_entry.md
-            git log $last_tag..HEAD --pretty=format:"- %s" >> changelog_entry.md
+            echo "" >> changelog_entry.md
+            git log $last_tag..HEAD --pretty=format:"**%s**%n%n%b%n" | sed '/^$/N;/^\n$/d' >> changelog_entry.md
           else
             echo "### Initial release" >> changelog_entry.md
-            git log --pretty=format:"- %s" >> changelog_entry.md
+            echo "" >> changelog_entry.md
+            git log --pretty=format:"**%s**%n%n%b%n" | sed '/^$/N;/^\n$/d' >> changelog_entry.md
           fi
           
           # Update CHANGELOG.md
