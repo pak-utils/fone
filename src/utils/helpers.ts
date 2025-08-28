@@ -34,7 +34,6 @@ export function parse(phone: string): PhoneNumber | null {
       raw: phone,
       formatted: format(normalized, 'national'),
       international: format(normalized, 'international'),
-      local: format(normalized, 'national'),
       operator,
       isValid: true,
       type: 'mobile',

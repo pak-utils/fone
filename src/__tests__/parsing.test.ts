@@ -13,7 +13,6 @@ describe('Phone Number Parsing and Utilities', () => {
       expect(result?.raw).toBe('03001234567');
       expect(result?.formatted).toBe('0300 1234567');
       expect(result?.international).toBe('+92 300 1234567');
-      expect(result?.local).toBe('0300 1234567');
       expect(result?.type).toBe('mobile');
       expect(result?.prefix).toBe(300);
       expect(result?.subscriberNumber).toBe('1234567');
@@ -27,7 +26,6 @@ describe('Phone Number Parsing and Utilities', () => {
       expect(result?.isValid).toBe(true);
       expect(result?.raw).toBe('+923001234567');
       expect(result?.international).toBe('+92 300 1234567');
-      expect(result?.local).toBe('0300 1234567');
     });
 
     test('should parse formatted numbers', () => {
@@ -288,7 +286,7 @@ describe('Phone Number Parsing and Utilities', () => {
       expect(parsed).not.toBeNull();
       expect(normalizePhoneNumber(parsed!.formatted)).toBe(originalNumber);
       expect(normalizePhoneNumber(parsed!.international)).toBe(originalNumber);
-      expect(normalizePhoneNumber(parsed!.local)).toBe(originalNumber);
+      expect(normalizePhoneNumber(parsed!.raw)).toBe(originalNumber);
     });
 
     test('should handle round-trip conversions correctly', () => {

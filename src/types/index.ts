@@ -36,10 +36,9 @@ export interface OperatorData extends OperatorInfo {
  * Parsed phone number object
  */
 export interface PhoneNumber {
-  readonly raw: string;
-  readonly formatted: string;
-  readonly international: string;
-  readonly local: string;
+  readonly raw: string;           // Original input
+  readonly formatted: string;     // National format with spaces (e.g., "0300 1234567")
+  readonly international: string; // International format (e.g., "+92 300 1234567")
   readonly operator: OperatorInfo | null;
   readonly isValid: boolean;
   readonly type: PhoneNumberType;

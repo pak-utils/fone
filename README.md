@@ -1,7 +1,7 @@
 # @pak-utils/fone 📱
 
 [![CI](https://github.com/pak-utils/fone/workflows/CI/badge.svg)](https://github.com/pak-utils/fone/actions)
-[![npm version](https://badge.fury.io/js/@pak-utils%2Ffone.svg)](https://www.npmjs.com/package/@pak-utils/fone)
+[![npm version](https://img.shields.io/npm/v/@pak-utils/fone.svg)](https://www.npmjs.com/package/@pak-utils/fone)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 
@@ -16,7 +16,7 @@ A comprehensive, zero-dependency npm package for **Pakistani phone number** vali
 - ⚡ **High Performance** - Optimized for speed and minimal memory usage
 - 🛡️ **Comprehensive Validation** - Strict and loose validation modes
 - 🌐 **Universal Compatibility** - Works in Node.js, browsers, and all frameworks
-- 🧪 **Comprehensive Testing** - 316+ test cases with real-world scenarios
+- 🧪 **Comprehensive Testing** - Extensive test coverage with real-world scenarios
 
 ## 📥 Installation
 
@@ -26,24 +26,62 @@ npm install @pak-utils/fone
 
 ## 🚀 Quick Start
 
+Get up and running in seconds with the most flexible Pakistani phone number library:
+
 ```javascript
 import { validate, format, detectOperator } from '@pak-utils/fone';
 
-// Validate Pakistani mobile numbers
-console.log(validate('03001234567')); // true
-console.log(validate('0300-123-4567')); // true
-console.log(validate('+92 300 1234567')); // true
+// ✅ Validation - Accepts any format
+validate('03001234567');        // true - standard format
+validate('0300-123-4567');      // true - with dashes  
+validate('+92 300 1234567');    // true - international
+validate('۰۳۰۰۱۲۳۴۵۶۷');     // true - Urdu digits!
+validate('92 300 1234567');     // true - without + sign
 
-// Urdu digits support
-console.log(validate('۰۳۰۰۱۲۳۴۵۶۷')); // true
+// 🎨 Formatting - Convert to any style  
+format('03001234567', 'international'); // '+92 300 1234567'
+format('03001234567', 'e164');          // '+923001234567'
+format('03001234567', 'dashes');        // '0300-123-4567'
+format('03001234567', 'dots');          // '0300.123.4567'
 
-// Format phone numbers
-console.log(format('03001234567', 'international')); // '+92 300 1234567'
-console.log(format('03001234567', 'e164')); // '+923001234567'
+// 📡 Operator Detection - Know the network
+detectOperator('03001234567');  // { code: 'JAZZ', name: 'Jazz', type: 'mobile' }
+detectOperator('03101234567');  // { code: 'ZONG', name: 'Zong', type: 'mobile' }
+```
 
-// Detect operators
-console.log(detectOperator('03001234567')); 
-// { code: 'JAZZ', name: 'Jazz', type: 'mobile' }
+### Real-World Examples
+
+```javascript
+// 🔍 Form Validation
+function validatePhoneInput(phone) {
+  if (!validate(phone)) {
+    return 'Please enter a valid Pakistani phone number';
+  }
+  return null;
+}
+
+// 🧹 Clean user input to standard format
+function cleanPhoneInput(phone) {
+  return normalize(phone); // '03001234567'
+}
+
+// 🖼️ Display formatting for UI
+function displayPhone(phone) {
+  return format(phone, 'national'); // '0300 1234567'
+}
+
+// 💾 Store in database as international standard
+function storePhone(phone) {
+  return format(phone, 'e164'); // '+923001234567'
+}
+
+// 📊 Analyze by operator
+function getOperatorStats(phoneNumbers) {
+  return phoneNumbers.map(phone => ({
+    phone,
+    operator: detectOperator(phone)?.name || 'Unknown'
+  }));
+}
 ```
 
 ## 📖 API Reference
@@ -51,7 +89,12 @@ console.log(detectOperator('03001234567'));
 ### Validation Functions
 
 #### `validate(phone: string): boolean`
-Quick validation for Pakistani phone numbers.
+**The go-to function for quick validation.** Returns `true` if the input is a valid Pakistani phone number in any format.
+
+- ✅ Supports all common input formats (national, international, formatted)
+- ✅ Handles Urdu digits automatically  
+- ✅ Very fast - optimized for high-volume validation
+- ❌ No detailed error information (use `validateStrict` for that)
 
 ```javascript
 import { validate } from '@pak-utils/fone';
@@ -64,7 +107,7 @@ validate('invalid');            // false
 ```
 
 #### `validateStrict(phone: string, options?: ValidationOptions): ValidationResult`
-Detailed validation with comprehensive error reporting.
+**Advanced validation with detailed error reporting.** Perfect when you need to know exactly what's wrong with invalid input.
 
 ```javascript
 import { validateStrict } from '@pak-utils/fone';
@@ -100,7 +143,9 @@ isMobile('invalid');      // false
 ### Formatting Functions
 
 #### `format(phone: string, style?: FormatStyle): string`
-Format phone numbers in different styles.
+**The most versatile formatting function.** Converts valid Pakistani phone numbers to your preferred display format.
+
+**Available styles:** `national`, `international`, `e164`, `compact`, `dots`, `dashes`, `parentheses`
 
 ```javascript
 import { format } from '@pak-utils/fone';
@@ -161,7 +206,7 @@ Safe formatting that doesn't throw on invalid input.
 ### Operator Detection Functions
 
 #### `detectOperator(phone: string): OperatorInfo | null`
-Get operator information from phone number.
+**Instantly identify the telecom operator** from any Pakistani phone number. Returns `null` for invalid numbers.
 
 ```javascript
 import { detectOperator } from '@pak-utils/fone';
@@ -225,15 +270,14 @@ import { parse } from '@pak-utils/fone';
 
 const parsed = parse('03001234567');
 // {
-//   raw: '03001234567',
-//   formatted: '0300 1234567',
-//   international: '+92 300 1234567',
-//   local: '0300 1234567',
+//   raw: '03001234567',              // Original input
+//   formatted: '0300 1234567',       // National format (with spaces)
+//   international: '+92 300 1234567', // International format
 //   operator: { code: 'JAZZ', name: 'Jazz', type: 'mobile' },
 //   isValid: true,
 //   type: 'mobile',
-//   prefix: 300,
-//   subscriberNumber: '1234567'
+//   prefix: 300,                     // Operator prefix number
+//   subscriberNumber: '1234567'      // The subscriber part
 // }
 ```
 
@@ -355,6 +399,11 @@ Normalize phone number with digit conversion.
 
 ```typescript
 import { 
+  validate,
+  validateStrict,
+  format,
+  detectOperator,
+  // Types
   PhoneNumber, 
   OperatorInfo, 
   FormatStyle, 
@@ -364,17 +413,26 @@ import {
   CustomFormatOptions 
 } from '@pak-utils/fone';
 
+// Using with types
 const formatStyle: FormatStyle = 'international';
-const result: ValidationResult = validateStrict('03001234567');
-const options: ValidationOptions = { strictMode: true };
+const phoneNumber = '03001234567';
+
+const result: ValidationResult = validateStrict(phoneNumber);
+const operator: OperatorInfo | null = detectOperator(phoneNumber);
+const formatted: string = format(phoneNumber, formatStyle);
+
+const options: ValidationOptions = { 
+  strictMode: true,
+  allowInternational: false 
+};
 ```
 
 ## ⚡ Performance
 
-- **Validation**: >100,000 operations/second
-- **Bundle Size**: <10KB minified + gzipped
+- **High Speed**: Optimized validation and formatting operations
+- **Small Bundle**: Minimal size when minified and gzipped
 - **Zero Dependencies**: No external dependencies
-- **Memory Efficient**: <1MB for typical usage
+- **Memory Efficient**: Low memory footprint for typical usage
 
 ## 🧪 Development
 
@@ -382,35 +440,25 @@ const options: ValidationOptions = { strictMode: true };
 # Install dependencies
 npm install
 
-# Run tests
-npm test
-
-# Build package  
-npm run build
+# Run type checking
+npm run typecheck
 
 # Run linting
 npm run lint
 
-# Type checking
-npm run typecheck
+# Run tests with coverage
+npm run test:coverage
 
-# Generate changelog
-npm run changelog
+# Build package
+npm run build
 
-# Release (patch/minor/major)
-npm run release
-npm run release:minor
-npm run release:major
+# Check bundle size
+npm run size
+
+# Run all checks (recommended before committing)
+npm run lint && npm run typecheck && npm test && npm run build
 ```
 
-## 🎯 Use Cases
-
-- **Form Validation** - Validate user input in registration forms
-- **Data Processing** - Clean and normalize phone number databases
-- **Analytics** - Analyze phone number patterns by operator
-- **Testing** - Generate realistic test data
-- **API Development** - Validate phone numbers in REST APIs
-- **SMS Services** - Route messages based on operator detection
 
 ## 📝 License
 
