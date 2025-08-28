@@ -1,0 +1,35 @@
+# Source code (only include compiled output)
+src/
+
+# Tests
+__tests__/
+**/*.test.ts
+**/*.spec.ts
+
+# Development files
+.github/
+examples/
+coverage/
+*.log
+
+# Config files
+tsconfig.json
+jest.config.js
+.eslintrc.js
+.prettierrc
+
+# Cache
+.eslintcache
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary
+*.tmp
+*.temp
