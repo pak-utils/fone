@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0] - 2025-08-28
+
+### Changes since v1.0.0:
+
+**fix: improve changelog generation to capture full commit messages**
+
+  - Now captures both commit subject and body
+  - Shows subject in bold, body as bullet points
+  - Proper spacing and formatting for better readability
+
+
+
 All notable changes to this project will be documented in this file.
 
 ## [1.0.0] - 2025-08-28
