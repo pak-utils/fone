@@ -1,6 +1,6 @@
 {
   "name": "@pak-utils/fone",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A comprehensive, zero-dependency npm package for Pakistani phone number validation, formatting, and operator detection.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
