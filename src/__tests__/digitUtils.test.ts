@@ -141,7 +141,7 @@ describe('Digit Utilities', () => {
     test('should limit excessive length (DoS protection)', () => {
       const longString = '0'.repeat(100);
       const result = sanitizePhoneInput(longString);
-      expect(result.length).toBeLessThanOrEqual(50);
+      expect(result.length).toBeLessThanOrEqual(30); // DoS protection limit
     });
 
     test('should handle invalid inputs', () => {

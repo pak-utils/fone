@@ -11,9 +11,9 @@ export type FormatStyle =
   | 'parentheses'; // (0300) 1234567
 
 /**
- * Phone number types
+ * Phone number type - this package only supports mobile numbers
  */
-export type PhoneNumberType = 'mobile' | 'unknown';
+export type PhoneNumberType = 'mobile';
 
 /**
  * Operator information interface

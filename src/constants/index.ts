@@ -66,7 +66,7 @@ export const COUNTRY_INFO = {
 } as const;
 
 /**
- * Urdu/Arabic-Indic digit mappings
+ * Urdu digit mappings
  */
 export const URDU_DIGITS = {
   TO_ENGLISH: {
@@ -108,4 +108,3 @@ export const ERROR_MESSAGES = {
   INVALID_CHARACTERS: 'Phone number contains invalid characters',
   OPERATOR_NOT_FOUND: 'Mobile operator not found for this prefix',
 } as const;
-

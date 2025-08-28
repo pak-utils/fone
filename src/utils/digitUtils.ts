@@ -2,7 +2,7 @@ import { URDU_DIGITS, LENGTH_CONSTANTS } from '../constants';
 import { PATTERNS } from '../data/patterns';
 
 /**
- * Converts Urdu/Arabic-Indic digits to English digits
+ * Converts Urdu digits to English digits
  * @param input - String containing Urdu digits
  * @returns String with English digits
  */
@@ -17,7 +17,7 @@ export function urduToEnglishDigits(input: string): string {
 }
 
 /**
- * Converts English digits to Urdu/Arabic-Indic digits
+ * Converts English digits to Urdu digits
  * @param input - String containing English digits
  * @returns String with Urdu digits
  */
@@ -97,9 +97,9 @@ export function sanitizePhoneInput(input: string): string {
   // Remove excessive whitespace
   sanitized = sanitized.replace(PATTERNS.CLEAN.MULTIPLE_SPACES, ' ');
 
-  // Basic security: limit length to prevent DoS
-  if (sanitized.length > 50) {
-    sanitized = sanitized.substring(0, 50);
+  // Basic security: limit length to prevent DoS - allow some extra for formatted input
+  if (sanitized.length > 30) {
+    sanitized = sanitized.substring(0, 30);
   }
 
   return sanitized;
@@ -122,8 +122,17 @@ export function isSafePhoneInput(input: string): boolean {
 
   // Check for potentially problematic patterns
   const problematicPatterns = [
-    /<script/i, /javascript:/i, /on\w+\s*=/i, /eval\(/i, /expression\(/i,
-    /data:/i, /vbscript:/i, /&#/i, /&lt;/i, /&gt;/i, /style\s*=/i
+    /<script/i,
+    /javascript:/i,
+    /on\w+\s*=/i,
+    /eval\(/i,
+    /expression\(/i,
+    /data:/i,
+    /vbscript:/i,
+    /&#/i,
+    /&lt;/i,
+    /&gt;/i,
+    /style\s*=/i,
   ];
 
   return !problematicPatterns.some(pattern => pattern.test(input));

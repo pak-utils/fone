@@ -4,8 +4,6 @@
  * A comprehensive, zero-dependency npm package for Pakistani phone number
  * validation, formatting, and operator detection.
  *
- * @author Sami Warraich
- * @license MIT
  */
 
 // Core validation functions
@@ -116,14 +114,3 @@ export {
 
 // Pattern exports for advanced users
 export { PATTERNS, FORMAT_TEMPLATES } from './data/patterns';
-
-import packageJson from '../package.json';
-
-export const VERSION = packageJson.version;
-export const packageInfo = {
-  name: packageJson.name,
-  version: packageJson.version,
-  description: packageJson.description,
-  author: packageJson.author,
-  license: packageJson.license,
-} as const;

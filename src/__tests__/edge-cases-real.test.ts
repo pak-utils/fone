@@ -16,7 +16,7 @@ describe('Edge Cases and Exception Handling', () => {
       });
 
       expect(result.isValid).toBe(true);
-      expect(result.phoneNumber?.type).toBe('unknown');
+      expect(result.phoneNumber?.type).toBe('mobile');
       expect(result.phoneNumber?.operator).toBeNull();
       expect(result.phoneNumber?.raw).toBe('1234567890');
     });
@@ -136,7 +136,7 @@ describe('Edge Cases and Exception Handling', () => {
       // Test length limiting
       const longInput = 'a'.repeat(100);
       const result = sanitizePhoneInput(longInput);
-      expect(result.length).toBe(50); // Should be truncated
+      expect(result.length).toBe(30); // Should be truncated for DoS protection
     });
   });
 

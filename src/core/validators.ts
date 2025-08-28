@@ -1,6 +1,6 @@
 import { ValidationOptions, ValidationResult, PhoneNumber } from '../types';
 import { PATTERNS } from '../data/patterns';
-import { ERROR_MESSAGES } from '../constants';
+import { ERROR_MESSAGES, LENGTH_CONSTANTS } from '../constants';
 import { isValidMobilePrefix, getOperatorByPrefix } from '../data/operators';
 import {
   sanitizePhoneInput,
@@ -35,8 +35,13 @@ export function validate(phone: string): boolean {
     // Normalize digits (convert Urdu to English)
     const normalized = normalizeDigits(sanitized);
 
-    // Remove formatting characters
+    // Remove formatting characters - get pure digits only
     const cleanPhone = normalized.replace(PATTERNS.CLEAN.FORMATTING, '');
+    
+    // Check length - max 14 digits for any valid Pakistani mobile number (00923001234567)
+    if (cleanPhone.length > LENGTH_CONSTANTS.MAX_MOBILE_LENGTH) {
+      return false;
+    }
 
     // Check if it matches any mobile pattern
     return PATTERNS.MOBILE.LOOSE.test(cleanPhone) && isValidPrefix(extractPrefix(cleanPhone));
@@ -79,7 +84,7 @@ export function validateStrict(phone: string, options: ValidationOptions = {}): 
           local: phone,
           operator: null,
           isValid: true,
-          type: 'unknown',
+          type: 'mobile',
           prefix: null,
           subscriberNumber: phone,
         },
@@ -87,6 +92,11 @@ export function validateStrict(phone: string, options: ValidationOptions = {}): 
     }
 
     const cleanPhone = phone.replace(PATTERNS.CLEAN.FORMATTING, '');
+
+    // Check length - max 14 digits for any valid Pakistani mobile number
+    if (cleanPhone.length > LENGTH_CONSTANTS.MAX_MOBILE_LENGTH) {
+      errors.push(ERROR_MESSAGES.INVALID_LENGTH);
+    }
 
     // Check for invalid characters
     if (!/^[\d+]+$/.test(cleanPhone)) {
@@ -203,7 +213,7 @@ function parsePhoneNumber(phone: string): PhoneNumber | null {
       ? {
           code: operatorData.code,
           name: operatorData.name,
-          type: operatorData.type as 'mobile' | 'unknown',
+          type: 'mobile' as const,
         }
       : null;
 
