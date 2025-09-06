@@ -6,7 +6,7 @@ import {
   hasOnlyValidDigits,
   sanitizePhoneInput,
   isSafePhoneInput,
-} from '../utils/digitUtils';
+} from '../utils/digit-utils';
 
 describe('Digit Utilities', () => {
   describe('urduToEnglishDigits', () => {

@@ -23,9 +23,7 @@ describe('Operators Data', () => {
       OPERATORS.forEach((operator: OperatorData) => {
         expect(operator).toHaveProperty('code');
         expect(operator).toHaveProperty('name');
-        expect(operator).toHaveProperty('type');
         expect(operator).toHaveProperty('prefixes');
-        expect(operator.type).toBe('mobile');
         expect(Array.isArray(operator.prefixes)).toBe(true);
         expect(operator.prefixes.length).toBeGreaterThan(0);
       });

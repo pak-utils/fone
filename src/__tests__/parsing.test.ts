@@ -1,6 +1,6 @@
 import { parse, randomPhoneNumber } from '../utils/helpers';
 import { detectOperator } from '../core/operators';
-import { normalizePhoneNumber } from '../utils/digitUtils';
+import { normalizePhoneNumber } from '../utils/digit-utils';
 import { GeneratorOptions } from '../types';
 
 describe('Phone Number Parsing and Utilities', () => {
@@ -13,7 +13,6 @@ describe('Phone Number Parsing and Utilities', () => {
       expect(result?.raw).toBe('03001234567');
       expect(result?.formatted).toBe('0300 1234567');
       expect(result?.international).toBe('+92 300 1234567');
-      expect(result?.type).toBe('mobile');
       expect(result?.prefix).toBe(300);
       expect(result?.subscriberNumber).toBe('1234567');
       expect(result?.operator?.code).toBe('JAZZ');
@@ -156,7 +155,6 @@ describe('Phone Number Parsing and Utilities', () => {
       expect(result).not.toBeNull();
       expect(result?.code).toBe('JAZZ');
       expect(result?.name).toBe('Jazz');
-      expect(result?.type).toBe('mobile');
     });
 
     test('should work with different number formats', () => {

@@ -3,8 +3,8 @@ import { OPERATORS } from '../data/operators';
 import { validate } from '../core/validators';
 import { format } from '../core/formatters';
 import { detectOperator } from '../core/operators';
-import { normalizePhoneNumber } from './digitUtils';
-import { extractPrefix, extractSubscriber } from './phoneUtils';
+import { normalizePhoneNumber } from './digit-utils';
+import { extractPrefix, extractSubscriber } from './phone-utils';
 
 /**
  * Parses a Pakistani phone number into a structured object
@@ -36,7 +36,6 @@ export function parse(phone: string): PhoneNumber | null {
       international: format(normalized, 'international'),
       operator,
       isValid: true,
-      type: 'mobile',
       prefix,
       subscriberNumber,
     };
@@ -44,7 +43,6 @@ export function parse(phone: string): PhoneNumber | null {
     return null;
   }
 }
-
 
 /**
  * Generates a random Pakistani mobile phone number
@@ -208,7 +206,6 @@ export function filterValid(phoneNumbers: string[]): string[] {
 export function filterInvalid(phoneNumbers: string[]): string[] {
   return phoneNumbers.filter(phone => !validate(phone));
 }
-
 
 /**
  * Checks if a string contains only digits

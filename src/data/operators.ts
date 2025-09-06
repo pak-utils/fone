@@ -8,7 +8,6 @@ export const OPERATORS: readonly OperatorData[] = [
   {
     code: 'JAZZ',
     name: 'Jazz',
-    type: 'mobile',
     network: 'GSM',
     prefixes: [
       300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 320, 321, 322, 323, 324, 325, 326, 327, 328,
@@ -18,35 +17,30 @@ export const OPERATORS: readonly OperatorData[] = [
   {
     code: 'ZONG',
     name: 'Zong',
-    type: 'mobile',
     network: 'GSM',
     prefixes: [310, 311, 312, 313, 314, 315, 316, 317, 318, 319],
   },
   {
     code: 'UFONE',
     name: 'Ufone',
-    type: 'mobile',
     network: 'GSM',
     prefixes: [330, 331, 332, 333, 334, 335, 336, 337, 338],
   },
   {
     code: 'ONIC',
     name: 'Onic',
-    type: 'mobile',
     network: 'GSM',
     prefixes: [339],
   },
   {
     code: 'TELENOR',
     name: 'Telenor',
-    type: 'mobile',
     network: 'GSM',
     prefixes: [340, 341, 342, 343, 344, 345, 346, 347, 348, 349],
   },
   {
     code: 'SCO',
     name: 'Special Communications Organization',
-    type: 'mobile',
     network: 'GSM',
     prefixes: [355],
   },

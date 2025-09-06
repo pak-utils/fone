@@ -7,8 +7,8 @@ import {
   isSafePhoneInput,
   normalizeDigits,
   normalizePhoneNumber,
-} from '../utils/digitUtils';
-import { extractPrefix } from '../utils/phoneUtils';
+} from '../utils/digit-utils';
+import { extractPrefix } from '../utils/phone-utils';
 
 /**
  * Validates a Pakistani phone number
@@ -37,7 +37,7 @@ export function validate(phone: string): boolean {
 
     // Remove formatting characters - get pure digits only
     const cleanPhone = normalized.replace(PATTERNS.CLEAN.FORMATTING, '');
-    
+
     // Check length - max 14 digits for any valid Pakistani mobile number (00923001234567)
     if (cleanPhone.length > LENGTH_CONSTANTS.MAX_MOBILE_LENGTH) {
       return false;
@@ -83,7 +83,6 @@ export function validateStrict(phone: string, options: ValidationOptions = {}): 
           international: phone,
           operator: null,
           isValid: true,
-          type: 'mobile',
           prefix: null,
           subscriberNumber: phone,
         },
@@ -159,7 +158,6 @@ export function isMobile(phone: string): boolean {
   }
 }
 
-
 /**
  * Checks if a prefix is valid for mobile numbers
  * @param prefix - The prefix to check
@@ -222,7 +220,6 @@ function parsePhoneNumber(phone: string): PhoneNumber | null {
       international: `+92 ${prefix} ${subscriberNumber}`,
       operator,
       isValid: true,
-      type: 'mobile',
       prefix,
       subscriberNumber,
     };

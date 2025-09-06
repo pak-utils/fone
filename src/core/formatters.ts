@@ -2,7 +2,7 @@ import { FormatStyle, CustomFormatOptions } from '../types';
 import { PATTERNS, FORMAT_TEMPLATES } from '../data/patterns';
 import { ERROR_MESSAGES } from '../constants';
 import { validate } from './validators';
-import { sanitizePhoneInput, normalizeDigits } from '../utils/digitUtils';
+import { sanitizePhoneInput, normalizeDigits } from '../utils/digit-utils';
 
 /**
  * Formats a Pakistani phone number according to the specified style

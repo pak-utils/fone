@@ -24,7 +24,6 @@ describe('Core Operators', () => {
       expect(result).not.toBeNull();
       expect(result?.code).toBe('JAZZ');
       expect(result?.name).toBe('Jazz');
-      expect(result?.type).toBe('mobile');
     });
 
     test('should detect Zong operator', () => {
@@ -249,7 +248,6 @@ describe('Core Operators', () => {
       const jazzInfo = getOperatorInfo('03001234567');
       expect(jazzInfo).not.toBeNull();
       expect(jazzInfo?.name).toBe('Jazz');
-      expect(jazzInfo?.type).toBe('mobile');
       expect(jazzInfo?.prefix).toBe(300);
     });
 

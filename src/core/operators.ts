@@ -26,7 +26,6 @@ export function detectOperator(phone: string): OperatorInfo | null {
   return {
     code: operatorData.code,
     name: operatorData.name,
-    type: operatorData.type,
     network: operatorData.network || undefined,
   };
 }
@@ -121,12 +120,12 @@ export function getOperatorInfo(phone: string): (OperatorInfo & { prefix: number
  */
 export function getSupportedOperators(): readonly OperatorInfo[] {
   return [
-    { code: 'JAZZ', name: 'Jazz', type: 'mobile', network: 'GSM' },
-    { code: 'ZONG', name: 'Zong', type: 'mobile', network: 'GSM' },
-    { code: 'UFONE', name: 'Ufone', type: 'mobile', network: 'GSM' },
-    { code: 'ONIC', name: 'Onic', type: 'mobile', network: 'GSM' },
-    { code: 'TELENOR', name: 'Telenor', type: 'mobile', network: 'GSM' },
-    { code: 'SCO', name: 'Special Communications Organization', type: 'mobile', network: 'GSM' },
+    { code: 'JAZZ', name: 'Jazz', network: 'GSM' },
+    { code: 'ZONG', name: 'Zong', network: 'GSM' },
+    { code: 'UFONE', name: 'Ufone', network: 'GSM' },
+    { code: 'ONIC', name: 'Onic', network: 'GSM' },
+    { code: 'TELENOR', name: 'Telenor', network: 'GSM' },
+    { code: 'SCO', name: 'Special Communications Organization', network: 'GSM' },
   ] as const;
 }
 

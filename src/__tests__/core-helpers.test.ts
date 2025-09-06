@@ -18,7 +18,7 @@ import {
   sortPhoneNumbers,
 } from '../utils/helpers';
 import { detectOperator } from '../core/operators';
-import { normalizePhoneNumber } from '../utils/digitUtils';
+import { normalizePhoneNumber } from '../utils/digit-utils';
 import { FormatStyle } from '../types';
 
 describe('Helpers Utilities', () => {
@@ -91,7 +91,6 @@ describe('Helpers Utilities', () => {
       const operator = detectOperator('03001234567');
       expect(operator?.code).toBe('JAZZ');
       expect(operator?.name).toBe('Jazz');
-      expect(operator?.type).toBe('mobile');
     });
 
     test('should return null for invalid numbers', () => {

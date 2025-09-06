@@ -65,7 +65,7 @@ export {
   sortPhoneNumbers,
 } from './utils/helpers';
 
-export { normalizePhoneNumber as normalize } from './utils/digitUtils';
+export { normalizePhoneNumber as normalize } from './utils/digit-utils';
 
 // Urdu digit utilities
 export {
@@ -76,7 +76,7 @@ export {
   hasOnlyValidDigits,
   sanitizePhoneInput,
   isSafePhoneInput,
-} from './utils/digitUtils';
+} from './utils/digit-utils';
 
 // Data exports
 export {
@@ -92,7 +92,6 @@ export {
 // Type exports
 export type {
   FormatStyle,
-  PhoneNumberType,
   OperatorInfo,
   OperatorData,
   PhoneNumber,

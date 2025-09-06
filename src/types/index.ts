@@ -11,17 +11,11 @@ export type FormatStyle =
   | 'parentheses'; // (0300) 1234567
 
 /**
- * Phone number type - this package only supports mobile numbers
- */
-export type PhoneNumberType = 'mobile';
-
-/**
  * Operator information interface
  */
 export interface OperatorInfo {
   readonly code: string;
   readonly name: string;
-  readonly type: PhoneNumberType;
   readonly network?: string | undefined;
 }
 
@@ -36,12 +30,11 @@ export interface OperatorData extends OperatorInfo {
  * Parsed phone number object
  */
 export interface PhoneNumber {
-  readonly raw: string;           // Original input
-  readonly formatted: string;     // National format with spaces (e.g., "0300 1234567")
+  readonly raw: string; // Original input
+  readonly formatted: string; // National format with spaces (e.g., "0300 1234567")
   readonly international: string; // International format (e.g., "+92 300 1234567")
   readonly operator: OperatorInfo | null;
   readonly isValid: boolean;
-  readonly type: PhoneNumberType;
   readonly prefix: number | null;
   readonly subscriberNumber: string;
 }
@@ -80,4 +73,3 @@ export interface CustomFormatOptions {
   readonly template?: (prefix: string, subscriber: string) => string;
   readonly pattern?: RegExp;
 }
-

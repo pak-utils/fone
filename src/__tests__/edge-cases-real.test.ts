@@ -6,7 +6,7 @@ import { validate, validateStrict, isMobile } from '../core/validators';
 import { format, stripFormatting, matchesFormat, ensureFormat } from '../core/formatters';
 import { detectOperator, getOperatorInfo, getOperatorPrefixes } from '../core/operators';
 import { parse, randomPhoneNumber } from '../utils/helpers';
-import { normalizePhoneNumber, sanitizePhoneInput } from '../utils/digitUtils';
+import { normalizePhoneNumber, sanitizePhoneInput } from '../utils/digit-utils';
 
 describe('Edge Cases and Exception Handling', () => {
   describe('Validation with custom patterns', () => {
@@ -16,7 +16,6 @@ describe('Edge Cases and Exception Handling', () => {
       });
 
       expect(result.isValid).toBe(true);
-      expect(result.phoneNumber?.type).toBe('mobile');
       expect(result.phoneNumber?.operator).toBeNull();
       expect(result.phoneNumber?.raw).toBe('1234567890');
     });
