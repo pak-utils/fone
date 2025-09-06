@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.1.4] - 2025-09-06
+
+### Changes since v1.1.3:
+
+**refactor: remove redundant isMobile function from API**
+
+- Remove isMobile function implementation and exports
+- Update tests to remove isMobile usage and imports
+- Remove isMobile documentation from README
+- Simplify API surface by eliminating redundant validation method
+
+BREAKING CHANGE: isMobile function removed. Use validate() instead.
+
+
+
 ## [1.1.3] - 2025-09-06
 
 ### Changes since v1.1.2:
