@@ -141,24 +141,6 @@ export function isValid(phone: string): boolean {
 }
 
 /**
- * Checks if the number is a mobile number
- * @param phone - The phone number to check
- * @returns True if mobile, false otherwise
- */
-export function isMobile(phone: string): boolean {
-  if (!validate(phone)) {
-    return false;
-  }
-
-  try {
-    const prefix = extractPrefix(phone);
-    return prefix !== null && isValidMobilePrefix(prefix);
-  } catch {
-    return false;
-  }
-}
-
-/**
  * Checks if a prefix is valid for mobile numbers
  * @param prefix - The prefix to check
  * @returns True if valid, false otherwise

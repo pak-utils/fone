@@ -7,7 +7,7 @@
  */
 
 // Core validation functions
-export { validate, validateStrict, isValid, isMobile } from './core/validators';
+export { validate, validateStrict, isValid } from './core/validators';
 
 // Core formatting functions
 export {

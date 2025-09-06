@@ -2,7 +2,7 @@
  * Real edge case tests to improve coverage for genuine scenarios
  */
 
-import { validate, validateStrict, isMobile } from '../core/validators';
+import { validate, validateStrict } from '../core/validators';
 import { format, stripFormatting, matchesFormat, ensureFormat } from '../core/formatters';
 import { detectOperator, getOperatorInfo, getOperatorPrefixes } from '../core/operators';
 import { parse, randomPhoneNumber } from '../utils/helpers';
@@ -50,7 +50,6 @@ describe('Edge Cases and Exception Handling', () => {
       expect(validate(malformedInput as any)).toBe(false);
       expect(parse(malformedInput as any)).toBeNull();
       expect(detectOperator(malformedInput as any)).toBeNull();
-      expect(isMobile(malformedInput as any)).toBe(false);
       expect(matchesFormat(malformedInput as any, 'national')).toBe(false);
       expect(stripFormatting(malformedInput as any)).toBe('');
 

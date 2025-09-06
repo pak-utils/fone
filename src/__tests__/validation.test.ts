@@ -1,4 +1,4 @@
-import { validate, validateStrict, isValid, isMobile } from '../core/validators';
+import { validate, validateStrict, isValid } from '../core/validators';
 import { ValidationOptions } from '../types';
 
 describe('Phone Number Validation', () => {
@@ -159,30 +159,6 @@ describe('Phone Number Validation', () => {
 
       testNumbers.forEach(number => {
         expect(isValid(number)).toBe(validate(number));
-      });
-    });
-  });
-
-  describe('isMobile function', () => {
-    test('should return true for mobile numbers', () => {
-      const mobileNumbers = [
-        '03001234567', // Jazz
-        '03101234567', // Zong
-        '03301234567', // Ufone
-        '03401234567', // Telenor
-        '03551234567', // SCO
-      ];
-
-      mobileNumbers.forEach(number => {
-        expect(isMobile(number)).toBe(true);
-      });
-    });
-
-    test('should return false for non-mobile numbers', () => {
-      const nonMobileNumbers = ['invalid', '', '12345'];
-
-      nonMobileNumbers.forEach(number => {
-        expect(isMobile(number)).toBe(false);
       });
     });
   });

@@ -133,17 +133,6 @@ validateStrict('1234567890', {
 
 Alias for `validate()` function.
 
-#### `isMobile(phone: string): boolean`
-
-Check if number is a mobile number.
-
-```javascript
-import { isMobile } from '@pak-utils/fone';
-
-isMobile('03001234567'); // true
-isMobile('invalid'); // false
-```
-
 ### Formatting Functions
 
 #### `format(phone: string, style?: FormatStyle): string`
