@@ -192,7 +192,6 @@ function parsePhoneNumber(phone: string): PhoneNumber | null {
       ? {
           code: operatorData.code,
           name: operatorData.name,
-          type: 'mobile' as const,
         }
       : null;
 

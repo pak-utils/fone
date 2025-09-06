@@ -45,8 +45,8 @@ format('03001234567', 'dashes'); // '0300-123-4567'
 format('03001234567', 'dots'); // '0300.123.4567'
 
 // 📡 Operator Detection - Know the network
-detectOperator('03001234567'); // { code: 'JAZZ', name: 'Jazz', type: 'mobile' }
-detectOperator('03101234567'); // { code: 'ZONG', name: 'Zong', type: 'mobile' }
+detectOperator('03001234567'); // { code: 'JAZZ', name: 'Jazz' }
+detectOperator('03101234567'); // { code: 'ZONG', name: 'Zong' }
 ```
 
 ### Real-World Examples
