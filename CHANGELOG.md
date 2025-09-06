@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.3] - 2025-09-06
+
+### Changes since v1.1.2:
+
+**refactor: improve code organization and clean up type system**
+
+- Standardize file naming convention to kebab-case
+- Remove redundant type fields from interfaces
+- Update imports and documentation accordingly
+
+
+
 ## [1.1.2] - 2025-08-28
 
 ### Changes since v1.1.1:
