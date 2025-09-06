@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.5] - 2025-09-06
+
+### Changes since v1.1.4:
+
+**refactor: remove redundant type field from operator objects**
+
+- Remove type: 'mobile' field from operator objects in validators
+- Update README examples to remove type field references
+- Align operator objects with OperatorInfo interface
+
+
+
 ## [1.1.4] - 2025-09-06
 
 ### Changes since v1.1.3:
