@@ -52,9 +52,6 @@
   ],
   "author": "Sami Warraich",
   "license": "MIT",
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

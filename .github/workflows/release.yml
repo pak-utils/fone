@@ -4,14 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       release-type:
-        description: 'Release type (patch, minor, major)'
+        description: "Release type (patch, minor, major)"
         required: true
-        default: 'patch'
+        default: "patch"
         type: choice
         options:
-        - patch
-        - minor
-        - major
+          - patch
+          - minor
+          - major
 
 jobs:
   check-ci:
@@ -31,7 +31,7 @@ jobs:
               head_sha: context.sha,
               status: 'completed'
             });
-            
+
             const latestRun = runs.workflow_runs[0];
             if (latestRun && latestRun.conclusion === 'success') {
               core.setOutput('passed', 'true');
@@ -58,23 +58,27 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-          cache: 'npm'
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
-        run: npm test -- --coverage
+      # Try to restore build artifacts from CI
+      - name: Restore build artifacts from CI
+        id: cache-restore
+        uses: actions/cache@v4
+        with:
+          path: |
+            dist/
+            coverage/
+          key: build-artifacts-${{ github.sha }}
+          restore-keys: |
+            build-artifacts-
 
-      - name: Run linting
-        run: npm run lint
-
-      - name: Run type checking
-        run: npm run typecheck
-
-      - name: Build package
+      - name: Build package (CI already verified quality)
+        if: steps.cache-restore.outputs.cache-hit != 'true'
         run: npm run build
 
       - name: Configure Git
@@ -92,31 +96,64 @@ jobs:
           # Get current version
           current_version=$(node -p "require('./package.json').version")
           echo "Current version: $current_version"
-          
+
           # Bump version
           npm version ${{ steps.release-type.outputs.type }} --no-git-tag-version
-          
+
           # Get new version
           new_version=$(node -p "require('./package.json').version")
           echo "New version: $new_version"
           echo "version=$new_version" >> $GITHUB_OUTPUT
-          
-          # Generate changelog entry
+
+          # Generate changelog entry with improved formatting
           echo "## [$new_version] - $(date +%Y-%m-%d)" > changelog_entry.md
           echo "" >> changelog_entry.md
-          
-          # Add commit messages since last tag
+
+          # Add commit messages since last tag with better categorization
           if git describe --tags --abbrev=0 >/dev/null 2>&1; then
             last_tag=$(git describe --tags --abbrev=0)
             echo "### Changes since $last_tag:" >> changelog_entry.md
             echo "" >> changelog_entry.md
-            git log $last_tag..HEAD --pretty=format:"**%s**%n%n%b%n" | sed '/^$/N;/^\n$/d' >> changelog_entry.md
+            
+            # Categorize commits
+            feat_commits=$(git log $last_tag..HEAD --pretty=format:"%s" --grep="^feat" || true)
+            fix_commits=$(git log $last_tag..HEAD --pretty=format:"%s" --grep="^fix" || true)
+            refactor_commits=$(git log $last_tag..HEAD --pretty=format:"%s" --grep="^refactor" || true)
+            other_commits=$(git log $last_tag..HEAD --pretty=format:"%s" --grep="^feat" --grep="^fix" --grep="^refactor" --invert-grep || true)
+            
+            # Add features
+            if [ -n "$feat_commits" ]; then
+              echo "#### ✨ Features" >> changelog_entry.md
+              echo "$feat_commits" | sed 's/^/- /' >> changelog_entry.md
+              echo "" >> changelog_entry.md
+            fi
+            
+            # Add fixes
+            if [ -n "$fix_commits" ]; then
+              echo "#### 🐛 Bug Fixes" >> changelog_entry.md
+              echo "$fix_commits" | sed 's/^/- /' >> changelog_entry.md
+              echo "" >> changelog_entry.md
+            fi
+            
+            # Add refactors
+            if [ -n "$refactor_commits" ]; then
+              echo "#### ♻️ Code Refactoring" >> changelog_entry.md
+              echo "$refactor_commits" | sed 's/^/- /' >> changelog_entry.md
+              echo "" >> changelog_entry.md
+            fi
+            
+            # Add other commits
+            if [ -n "$other_commits" ]; then
+              echo "#### 📝 Other Changes" >> changelog_entry.md
+              echo "$other_commits" | sed 's/^/- /' >> changelog_entry.md
+              echo "" >> changelog_entry.md
+            fi
           else
-            echo "### Initial release" >> changelog_entry.md
+            echo "### 🎉 Initial release" >> changelog_entry.md
             echo "" >> changelog_entry.md
-            git log --pretty=format:"**%s**%n%n%b%n" | sed '/^$/N;/^\n$/d' >> changelog_entry.md
+            git log --pretty=format:"- %s" >> changelog_entry.md
           fi
-          
+
           # Update CHANGELOG.md
           if [ -f CHANGELOG.md ]; then
             # Insert new entry after the first line (header)
