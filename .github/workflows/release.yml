@@ -105,53 +105,18 @@ jobs:
           echo "New version: $new_version"
           echo "version=$new_version" >> $GITHUB_OUTPUT
 
-          # Generate changelog entry with improved formatting
+          # Generate changelog entry with full commit messages
           echo "## [$new_version] - $(date +%Y-%m-%d)" > changelog_entry.md
           echo "" >> changelog_entry.md
 
-          # Add commit messages since last tag with better categorization
+          # Add commit messages since last tag
           if git describe --tags --abbrev=0 >/dev/null 2>&1; then
             last_tag=$(git describe --tags --abbrev=0)
-            echo "### Changes since $last_tag:" >> changelog_entry.md
-            echo "" >> changelog_entry.md
-            
-            # Categorize commits
-            feat_commits=$(git log $last_tag..HEAD --pretty=format:"%s" --grep="^feat" || true)
-            fix_commits=$(git log $last_tag..HEAD --pretty=format:"%s" --grep="^fix" || true)
-            refactor_commits=$(git log $last_tag..HEAD --pretty=format:"%s" --grep="^refactor" || true)
-            other_commits=$(git log $last_tag..HEAD --pretty=format:"%s" --grep="^feat" --grep="^fix" --grep="^refactor" --invert-grep || true)
-            
-            # Add features
-            if [ -n "$feat_commits" ]; then
-              echo "#### ✨ Features" >> changelog_entry.md
-              echo "$feat_commits" | sed 's/^/- /' >> changelog_entry.md
-              echo "" >> changelog_entry.md
-            fi
-            
-            # Add fixes
-            if [ -n "$fix_commits" ]; then
-              echo "#### 🐛 Bug Fixes" >> changelog_entry.md
-              echo "$fix_commits" | sed 's/^/- /' >> changelog_entry.md
-              echo "" >> changelog_entry.md
-            fi
-            
-            # Add refactors
-            if [ -n "$refactor_commits" ]; then
-              echo "#### ♻️ Code Refactoring" >> changelog_entry.md
-              echo "$refactor_commits" | sed 's/^/- /' >> changelog_entry.md
-              echo "" >> changelog_entry.md
-            fi
-            
-            # Add other commits
-            if [ -n "$other_commits" ]; then
-              echo "#### 📝 Other Changes" >> changelog_entry.md
-              echo "$other_commits" | sed 's/^/- /' >> changelog_entry.md
-              echo "" >> changelog_entry.md
-            fi
+            git log $last_tag..HEAD --pretty=format:"### %s%n%n%b%n" | sed '/^$/N;/^\n$/d' >> changelog_entry.md
           else
-            echo "### 🎉 Initial release" >> changelog_entry.md
+            echo "### Initial release" >> changelog_entry.md
             echo "" >> changelog_entry.md
-            git log --pretty=format:"- %s" >> changelog_entry.md
+            git log --pretty=format:"### %s%n%n%b%n" | sed '/^$/N;/^\n$/d' >> changelog_entry.md
           fi
 
           # Update CHANGELOG.md
