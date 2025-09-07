@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.7] - 2025-09-07
+
+### refactor(ci): simplify changelog generation format
+
+- Remove emoji categorization and complex formatting
+- Capture full commit messages with body content
+- Use clean standard format for better readability
+
+
+
 ## [1.1.6] - 2025-09-07
 
 ### Changes since v1.1.5:
