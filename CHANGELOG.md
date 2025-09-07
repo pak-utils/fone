@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.6] - 2025-09-07
+
+### Changes since v1.1.5:
+
+#### ♻️ Code Refactoring
+- refactor(ci): optimize workflows and remove engine restrictions
+
+
+
 ## [1.1.5] - 2025-09-06
 
 ### Changes since v1.1.4:
